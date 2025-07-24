@@ -1,0 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  /* Custom Scrollbar */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 8px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: #1e1e1e;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #4facfe;
+    border-radius: 4px;
+  }
+
+  /* Blog highlight border */
+  .blog-highlight {
+    border: 2px solid #ff7e5f;
+    background: #222;
+    border-radius: 10px;
+    padding: 10px;
+  }
+
+  /* Gradient backgrounds for buttons */
+  .btn-gradient {
+    @apply bg-gradient-to-r from-blue-500 to-cyan-400 text-white;
+  }
+  .btn-gradient:hover {
+    @apply from-cyan-400 to-blue-500;
+  }
+
+  /* Card shadow for blog/admin */
+  .card-shadow {
+    box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+  }
+
+  /* For rounded blog images */
+  .rounded-img {
+    border-radius: 8px;
+  }
+
+  /* For author pic */
+  .author-pic {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+  }
+}
