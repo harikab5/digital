@@ -32,7 +32,7 @@ export default function Login() {
         loginTime: new Date().toLocaleString(),
       });
       localStorage.setItem("loginHistory", JSON.stringify(loginHistory));
-      navigate("/home");
+      navigate("/home1");
     } else {
       alert("Invalid credentials. Please try again.");
     }

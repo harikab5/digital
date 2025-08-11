@@ -1,3 +1,102 @@
+/* Hexagon clip-path utility */
+.clip-hexagon {
+  clip-path: polygon(
+    25% 6.7%, 75% 6.7%,
+    100% 50%, 75% 93.3%,
+    25% 93.3%, 0% 50%
+  );
+}
+/* Fade-in animation */
+.animate-fade-in {
+  animation: fadeIn 1s cubic-bezier(0.4,0,0.2,1) both;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Fade-in-up animation */
+.animate-fade-in-up {
+  animation: fadeInUp 1s cubic-bezier(0.4,0,0.2,1) both;
+}
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Zoom-in animation */
+.animate-zoom-in {
+  animation: zoomIn 0.9s cubic-bezier(0.4,0,0.2,1) both;
+}
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+/* Uniform height for testimonial cards */
+.testimonial-card {
+  min-height: 340px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+/* Slide-in animation for main metric label */
+.slide-in-metric-label {
+  display: inline-block;
+  opacity: 0;
+  transform: translateX(40px);
+  animation: slideInMetricLabel 0.7s cubic-bezier(0.4,0,0.2,1) forwards;
+}
+@keyframes slideInMetricLabel {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+/* Slide-in animation for metrics label only */
+.slide-in-metric-label {
+  display: inline-block;
+  opacity: 0;
+  transform: translateX(40px);
+  animation: slideInMetricLabel 0.7s cubic-bezier(0.4,0,0.2,1) forwards;
+}
+@keyframes slideInMetricLabel {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@keyframes slideInLeft {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.slide-in-left {
+  display: inline-block;
+  animation: slideInLeft 1s cubic-bezier(0.4,0,0.2,1);
+  white-space: nowrap;
+}
 #root {
   max-width: 1280px;
   margin: 0 auto;

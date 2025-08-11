@@ -41,6 +41,100 @@ export default function AdminDashboard() {
     }
   }
 
+  const [form, setForm] = useState({
+    title: "",
+    image: "",
+    author: "",
+    authorImage: "",
+    summary: "",
+    content: "",
+    instagram: "",
+    facebook: "",
+    whatsapp: "",
+    linkedin: ""
+  });
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+  const [blogs, setBlogs] = useState([]);
+
+  useEffect(() => {
+    const stored = JSON.parse(localStorage.getItem("blogs")) || [];
+    setBlogs(stored);
+  }, []);
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+    setError("");
+    setSuccess("");
+  };
+  function isValidUrl(url) {
+    try {
+      if (!url) return true;
+      new URL(url);
+      return true;
+    } catch {
+      return false;
+    }
+  }
+  const handleSave = () => {
+    // Required fields
+    if (!form.title || !form.image || !form.author || !form.authorImage || !form.summary || !form.content) {
+      setError("Please fill all required fields.");
+      setSuccess("");
+      return;
+    }
+    // Validate URLs
+    if (!isValidUrl(form.image)) {
+      setError("Please enter a valid Blog Image URL.");
+      setSuccess("");
+      return;
+    }
+    if (!isValidUrl(form.authorImage)) {
+      setError("Please enter a valid Author Profile Image URL.");
+      setSuccess("");
+      return;
+    }
+    if (form.instagram && !isValidUrl(form.instagram)) {
+      setError("Please enter a valid Instagram URL.");
+      setSuccess("");
+      return;
+    }
+    if (form.facebook && !isValidUrl(form.facebook)) {
+      setError("Please enter a valid Facebook URL.");
+      setSuccess("");
+      return;
+    }
+    if (form.whatsapp && !isValidUrl(form.whatsapp)) {
+      setError("Please enter a valid WhatsApp URL.");
+      setSuccess("");
+      return;
+    }
+    if (form.linkedin && !isValidUrl(form.linkedin)) {
+      setError("Please enter a valid LinkedIn URL.");
+      setSuccess("");
+      return;
+    }
+    // Save blog
+    const newBlog = { ...form, date: new Date().toLocaleString() };
+    const updatedBlogs = [newBlog, ...blogs];
+    localStorage.setItem("blogs", JSON.stringify(updatedBlogs));
+    setBlogs(updatedBlogs);
+    setForm({
+      title: "",
+      image: "",
+      author: "",
+      authorImage: "",
+      summary: "",
+      content: "",
+      instagram: "",
+      facebook: "",
+      whatsapp: "",
+      linkedin: ""
+    });
+    setError("");
+    setSuccess("Blog saved successfully!");
+  };
+
   return (
     <div className={darkMode ? "bg-gray-900 text-white min-h-screen flex" : "bg-gray-100 text-gray-900 min-h-screen flex"}>
       {/* Sidebar */}
@@ -126,54 +220,82 @@ export default function AdminDashboard() {
             <div className="max-w-3xl mx-auto">
               <h2 className="text-3xl font-bold mb-8 text-orange-400 flex items-center gap-2 justify-center"><span role='img' aria-label='blog'>📝</span> BLOG POSTS</h2>
             </div>
-            <form className="max-w-3xl mx-auto bg-gray-900 p-8 rounded-lg shadow-lg flex flex-col gap-6 mb-8">
+            {/* Blog Post Form with Validation and Save */}
+            <form className="max-w-3xl mx-auto bg-gray-900 p-8 rounded-lg shadow-lg flex flex-col gap-6 mb-8" onSubmit={e => e.preventDefault()}>
               <div>
                 <label className="block mb-2 font-semibold text-gray-300">Blog Title</label>
-                <input type="text" className="w-full px-4 py-2 rounded bg-gray-800 text-white placeholder-gray-400 focus:outline-none" placeholder="Enter blog title" />
+                <input name="title" value={form.title} onChange={handleChange} type="text" className="w-full px-4 py-2 rounded bg-gray-800 text-white placeholder-gray-400 focus:outline-none" placeholder="Enter blog title" />
               </div>
               <div>
                 <label className="block mb-2 font-semibold text-gray-300">Blog Image URL</label>
-                <input type="text" className="w-full px-4 py-2 rounded bg-gray-800 text-white placeholder-gray-400 focus:outline-none" placeholder="Enter blog image URL" />
+                <input name="image" value={form.image} onChange={handleChange} type="text" className="w-full px-4 py-2 rounded bg-gray-800 text-white placeholder-gray-400 focus:outline-none" placeholder="Enter blog image URL" />
               </div>
               <div>
                 <label className="block mb-2 font-semibold text-gray-300">Author Name</label>
-                <input type="text" className="w-full px-4 py-2 rounded bg-gray-800 text-white placeholder-gray-400 focus:outline-none" placeholder="Enter author name" />
+                <input name="author" value={form.author} onChange={handleChange} type="text" className="w-full px-4 py-2 rounded bg-gray-800 text-white placeholder-gray-400 focus:outline-none" placeholder="Enter author name" />
               </div>
               <div>
                 <label className="block mb-2 font-semibold text-gray-300">Author Profile Image URL</label>
-                <input type="text" className="w-full px-4 py-2 rounded bg-gray-800 text-white placeholder-gray-400 focus:outline-none" placeholder="Enter author profile image URL" />
+                <input name="authorImage" value={form.authorImage} onChange={handleChange} type="text" className="w-full px-4 py-2 rounded bg-gray-800 text-white placeholder-gray-400 focus:outline-none" placeholder="Enter author profile image URL" />
               </div>
               <div>
                 <label className="block mb-2 font-semibold text-gray-300">Blog Summary</label>
-                <textarea className="w-full px-4 py-2 rounded bg-gray-800 text-white placeholder-gray-400 focus:outline-none" rows={3} placeholder="Enter a short summary"></textarea>
+                <textarea name="summary" value={form.summary} onChange={handleChange} className="w-full px-4 py-2 rounded bg-gray-800 text-white placeholder-gray-400 focus:outline-none" rows={3} placeholder="Enter a short summary"></textarea>
               </div>
               <div>
                 <label className="block mb-2 font-semibold text-gray-300">Blog Content</label>
-                <textarea className="w-full px-4 py-2 rounded bg-gray-800 text-white placeholder-gray-400 focus:outline-none" rows={5} placeholder="Enter blog content"></textarea>
+                <textarea name="content" value={form.content} onChange={handleChange} className="w-full px-4 py-2 rounded bg-gray-800 text-white placeholder-gray-400 focus:outline-none" rows={5} placeholder="Enter blog content"></textarea>
               </div>
+              {error && <div className="text-red-400 font-semibold text-center">{error}</div>}
+              {success && <div className="text-green-400 font-semibold text-center">{success}</div>}
+              <button type="button" onClick={handleSave} className="w-full py-3 mt-4 rounded font-bold text-white bg-gradient-to-r from-orange-400 to-pink-400 hover:from-pink-400 hover:to-orange-400 transition">SAVE BLOG</button>
             </form>
             <div className="max-w-3xl mx-auto bg-gray-900 p-8 rounded-lg shadow-lg flex flex-col gap-6 mb-8">
               <h2 className="text-2xl font-bold mb-6 text-orange-400 text-center">SOCIAL MEDIA LINKS (OPTIONAL)</h2>
               <div>
                 <label className="block mb-2 font-semibold text-gray-300">Instagram</label>
-                <input type="text" className="w-full px-4 py-2 rounded bg-gray-800 text-white placeholder-gray-400 focus:outline-none" placeholder="Enter Instagram URL" />
+                <input name="instagram" value={form.instagram} onChange={handleChange} type="text" className="w-full px-4 py-2 rounded bg-gray-800 text-white placeholder-gray-400 focus:outline-none" placeholder="Enter Instagram URL" />
               </div>
               <div>
                 <label className="block mb-2 font-semibold text-gray-300">Facebook</label>
-                <input type="text" className="w-full px-4 py-2 rounded bg-gray-800 text-white placeholder-gray-400 focus:outline-none" placeholder="Enter Facebook URL" />
+                <input name="facebook" value={form.facebook} onChange={handleChange} type="text" className="w-full px-4 py-2 rounded bg-gray-800 text-white placeholder-gray-400 focus:outline-none" placeholder="Enter Facebook URL" />
               </div>
               <div>
                 <label className="block mb-2 font-semibold text-gray-300">WhatsApp</label>
-                <input type="text" className="w-full px-4 py-2 rounded bg-gray-800 text-white placeholder-gray-400 focus:outline-none" placeholder="Enter WhatsApp URL" />
+                <input name="whatsapp" value={form.whatsapp} onChange={handleChange} type="text" className="w-full px-4 py-2 rounded bg-gray-800 text-white placeholder-gray-400 focus:outline-none" placeholder="Enter WhatsApp URL" />
               </div>
               <div>
                 <label className="block mb-2 font-semibold text-gray-300">LinkedIn</label>
-                <input type="text" className="w-full px-4 py-2 rounded bg-gray-800 text-white placeholder-gray-400 focus:outline-none" placeholder="Enter LinkedIn URL" />
+                <input name="linkedin" value={form.linkedin} onChange={handleChange} type="text" className="w-full px-4 py-2 rounded bg-gray-800 text-white placeholder-gray-400 focus:outline-none" placeholder="Enter LinkedIn URL" />
               </div>
-              <button type="button" className="w-full py-3 mt-4 rounded font-bold text-white bg-gradient-to-r from-orange-400 to-pink-400 hover:from-pink-400 hover:to-orange-400 transition">SAVE BLOG</button>
             </div>
             <div className="max-w-3xl mx-auto">
               <h3 className="text-lg font-bold text-white mb-2">Existing Blogs</h3>
+              <div className="flex flex-col gap-4">
+                {blogs.length === 0 ? (
+                  <div className="text-gray-400">No blogs yet.</div>
+                ) : (
+                  blogs.map((blog, i) => (
+                    <div key={i} className="bg-gray-800 p-4 rounded shadow text-white">
+                      <div className="flex items-center gap-4 mb-2">
+                        <img src={blog.image} alt="Blog" className="w-36 h-36 object-cover rounded" />
+                        <div>
+                          <h4 className="text-xl font-bold text-orange-300">{blog.title}</h4>
+                          <div className="text-gray-400 text-sm">By {blog.author} | {blog.date}</div>
+                        </div>
+                      </div>
+                      <div className="text-gray-300 mb-2">{blog.summary}</div>
+                      <div className="text-gray-400 text-sm mb-2">{blog.content}</div>
+                      <div className="flex gap-2 mt-2">
+                        {blog.instagram && <a href={blog.instagram} target="_blank" rel="noopener noreferrer" className="text-pink-400 underline">Instagram</a>}
+                        {blog.facebook && <a href={blog.facebook} target="_blank" rel="noopener noreferrer" className="text-blue-400 underline">Facebook</a>}
+                        {blog.whatsapp && <a href={blog.whatsapp} target="_blank" rel="noopener noreferrer" className="text-green-400 underline">WhatsApp</a>}
+                        {blog.linkedin && <a href={blog.linkedin} target="_blank" rel="noopener noreferrer" className="text-blue-300 underline">LinkedIn</a>}
+                      </div>
+                    </div>
+                  ))
+                )}
+              </div>
             </div>
           </section>
         )}

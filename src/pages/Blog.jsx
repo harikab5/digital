@@ -18,6 +18,29 @@ export default function Blog() {
   useEffect(() => {
     setBlogs(getBlogs());
     setLikesData(getLikes());
+
+    // Listen for localStorage changes (cross-tab)
+    const handleStorage = (e) => {
+      if (e.key === "blogs") {
+        setBlogs(getBlogs());
+      }
+    };
+    window.addEventListener("storage", handleStorage);
+
+    // Polling fallback for same-tab updates
+    let lastBlogs = JSON.stringify(getBlogs());
+    const poll = setInterval(() => {
+      const current = JSON.stringify(getBlogs());
+      if (current !== lastBlogs) {
+        setBlogs(getBlogs());
+        lastBlogs = current;
+      }
+    }, 1000);
+
+    return () => {
+      window.removeEventListener("storage", handleStorage);
+      clearInterval(poll);
+    };
   }, []);
 
   const handleLike = (blogId) => {
@@ -53,7 +76,17 @@ export default function Blog() {
 
   return (
     <div className="min-h-screen bg-gray-900 text-white pb-10">
-      <header className="text-center py-10 bg-gradient-to-r from-gray-800 to-gray-900">
+      {/* Styled intro section matching Home1 and the image */}
+      <section className="text-center py-10 bg-gradient-to-r from-gray-800 to-gray-900 mb-6">
+        <div>
+          <span style={{ display: 'block', color: '#53295a', fontWeight: 700, fontSize: '2.5rem', letterSpacing: '1px', lineHeight: 1 }}>marketing is</span>
+          <span style={{ display: 'block', color: '#8bc34a', fontWeight: 700, fontSize: '2.5rem', letterSpacing: '1px', lineHeight: 1 }}>insight,</span>
+        </div>
+        <p className="max-w-2xl mx-auto mt-6 text-lg" style={{ color: '#53295a', fontWeight: 500 }}>
+          We have successfully launched 50+ digital marketing campaigns, helping brands increase their online presence, generate quality leads, and boost ROI. Our expertise covers SEO, social media, PPC, content marketing, and analytics—empowering businesses to reach their target audience and achieve measurable growth in the digital landscape.
+        </p>
+      </section>
+      <header className="text-center py-6 bg-gradient-to-r from-gray-800 to-gray-900">
         <h1 className="text-3xl font-bold mb-2 text-blue-400">📖 Our Latest Blogs</h1>
         <p className="text-gray-300">Explore the latest digital marketing strategies, insights, and news.</p>
       </header>
