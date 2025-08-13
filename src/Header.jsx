@@ -1,22 +1,25 @@
-  const [isAvatarDropdownOpen, setIsAvatarDropdownOpen] = useState(false);
-  const navigate = window.location;
-  // Get logged-in user initials
-  let initials = "";
-  const loggedInEmail = localStorage.getItem("loggedInUser");
-  if (loggedInEmail) {
-    const users = JSON.parse(localStorage.getItem("users")) || [];
-    const user = users.find(u => u.email === loggedInEmail);
-    if (user) {
-      const first = user.firstName ? user.firstName[0] : "";
-      const last = user.lastName ? user.lastName[0] : "";
-      initials = (first + last).toUpperCase();
-    }
-  }
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "./assets/logo.png";
 
 export default function Header() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  // ...existing code...
+  const [isAvatarDropdownOpen, setIsAvatarDropdownOpen] = useState(false);
+  // Get logged-in user initials
+  let initials = "?";
+  const loggedInEmail = localStorage.getItem("loggedInUser");
+  if (loggedInEmail) {
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+    const user = users.find(u => u.email === loggedInEmail);
+    if (user) {
+      const first = user.firstName && user.firstName.trim().length > 0 ? user.firstName.trim()[0] : "";
+      const last = user.lastName && user.lastName.trim().length > 0 ? user.lastName.trim()[0] : "";
+      if (first || last) {
+        initials = `${first}${last}`.toUpperCase();
+      }
+    }
+  }
   const [isHomeDropdownOpen, setIsHomeDropdownOpen] = useState(false);
   const [isServicesDropdownOpen, setIsServicesDropdownOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -219,27 +222,35 @@ export default function Header() {
 
               {/* Profile button */}
               <div className="relative">
-                <button
-                  className="w-10 h-10 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full flex items-center justify-center font-semibold hover:from-pink-600 hover:to-purple-600 transition-all duration-200"
-                  onClick={() => setIsAvatarDropdownOpen((open) => !open)}
-                  aria-label="Open profile menu"
-                >
-                  {initials || "?"}
-                </button>
-                {isAvatarDropdownOpen && (
-                  <div className="absolute right-0 mt-2 w-32 bg-white rounded-md shadow-lg border border-gray-200 z-50">
-                    <button
-                      className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                      onClick={() => {
-                        localStorage.removeItem("loggedInUser");
-                        setIsAvatarDropdownOpen(false);
-                        window.location.href = "/login";
-                      }}
-                    >
-                      Logout
-                    </button>
-                  </div>
-                )}
+                {(() => {
+                  let initials = '';
+                  const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser') || 'null');
+                  if (loggedInUser) {
+                    const first = loggedInUser.firstName ? loggedInUser.firstName.trim()[0] : '';
+                    const last = loggedInUser.lastName ? loggedInUser.lastName.trim()[0] : '';
+                    initials = `${first}${last}`.toUpperCase();
+                  }
+                  return (
+                    <>
+                      <button
+                        className="w-10 h-10 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full flex items-center justify-center font-semibold hover:from-pink-600 hover:to-purple-600 transition-all duration-200"
+                        onClick={() => setIsAvatarDropdownOpen((v) => !v)}
+                      >
+                        {initials}
+                      </button>
+                      {isAvatarDropdownOpen && (
+                        <div className="absolute right-0 mt-2 w-32 bg-white rounded-md shadow-lg border border-gray-200 py-2 z-50">
+                          <button
+                            className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-orange-100"
+                            onClick={() => { setIsAvatarDropdownOpen(false); window.location.href = '/'; }}
+                          >
+                            Logout
+                          </button>
+                        </div>
+                      )}
+                    </>
+                  );
+                })()}
               </div>
             </div>
           </div>
@@ -247,8 +258,12 @@ export default function Header() {
       </div>
 
       {/* Mobile menu button */}
-      <div className="md:hidden">
-        <button className="p-2 rounded-md text-gray-700 hover:text-blue-600 hover:bg-gray-100">
+      <div className="md:hidden relative">
+        <button
+          className="p-2 rounded-md text-gray-700 hover:text-blue-600 hover:bg-gray-100"
+          onClick={() => setIsMobileMenuOpen((open) => !open)}
+          aria-label="Open mobile menu"
+        >
           <svg
             className="w-6 h-6"
             fill="none"
@@ -263,6 +278,30 @@ export default function Header() {
             />
           </svg>
         </button>
+        {isMobileMenuOpen && (
+          <div className="fixed top-0 left-0 w-full bg-white rounded-b-md shadow-lg border-b border-gray-200 z-50">
+            <nav className="flex flex-col py-2">
+              <Link to="/" className="px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsMobileMenuOpen(false)}>Home</Link>
+              <Link to="/home1" className="px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsMobileMenuOpen(false)}>Home1</Link>
+              <Link to="/home2" className="px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsMobileMenuOpen(false)}>Home2</Link>
+              <Link to="/about" className="px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsMobileMenuOpen(false)}>About Us</Link>
+              <details>
+                <summary className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">Services</summary>
+                <div className="flex flex-col ml-4">
+                  <Link to="/services/seo" className="px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsMobileMenuOpen(false)}>Search Engine Optimization (SEO)</Link>
+                  <Link to="/services/smm" className="px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsMobileMenuOpen(false)}>Social Media Marketing (SMM)</Link>
+                  <Link to="/services/ppc" className="px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsMobileMenuOpen(false)}>Pay-Per-Click Advertising (PPC)</Link>
+                  <Link to="/services/content" className="px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsMobileMenuOpen(false)}>Content Marketing</Link>
+                  <Link to="/services/email" className="px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsMobileMenuOpen(false)}>Email Marketing & Automation</Link>
+                  <Link to="/services/web" className="px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsMobileMenuOpen(false)}>Website Design & Development</Link>
+                </div>
+              </details>
+              <Link to="/blog" className="px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsMobileMenuOpen(false)}>Blog</Link>
+              <Link to="/contactus" className="px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsMobileMenuOpen(false)}>Contact Us</Link>
+              <button className="px-4 py-2 text-gray-700 hover:bg-gray-100 text-left" onClick={() => { localStorage.removeItem("loggedInUser"); setIsMobileMenuOpen(false); window.location.href = "/login"; }}>Logout</button>
+            </nav>
+          </div>
+        )}
       </div>
     </header>
   );

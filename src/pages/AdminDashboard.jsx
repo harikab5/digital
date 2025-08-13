@@ -32,7 +32,7 @@ export default function AdminDashboard() {
   // State for Edit Modal
   const [showEditModal, setShowEditModal] = useState(false);
 
-  // Dummy data for demonstration
+  // Real-time data for users and logins
   const [users, setUsers] = useState(JSON.parse(localStorage.getItem("users")) || []);
   const [loginHistory, setLoginHistory] = useState(JSON.parse(localStorage.getItem("loginHistory")) || []);
 
@@ -43,7 +43,12 @@ export default function AdminDashboard() {
       setLoginHistory(JSON.parse(localStorage.getItem("loginHistory")) || []);
     };
     window.addEventListener("storage", updateUserData);
-    return () => window.removeEventListener("storage", updateUserData);
+    // Poll every 2 seconds for real-time updates
+    const interval = setInterval(updateUserData, 2000);
+    return () => {
+      window.removeEventListener("storage", updateUserData);
+      clearInterval(interval);
+    };
   }, []);
 
   // Calculate campaign stats
