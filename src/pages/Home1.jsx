@@ -1,9 +1,24 @@
+
 import React from "react";
-import { Link } from "react-router-dom";
+import AOS from "aos";
+import "aos/dist/aos.css";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import Header from "../Header";
 import Footer from "../Footer";
 
 export default function Home() {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const whoWeAreRef = React.useRef(null);
+
+  // Scroll to top on route change
+  React.useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+  }, [location.pathname]);
+  // Initialize AOS after React is available
+  React.useEffect(() => {
+    AOS.init({ once: false, duration: 2000 }); // 1200ms = 1.2s for slower animations
+  }, []);
   // Inject keyframes for slideInLeft animation only once
   React.useEffect(() => {
     const styleSheet = document.createElement('style');
@@ -13,7 +28,7 @@ export default function Home() {
   }, []);
   // Use a CSS class for sliding animation
   // Animated number component for metrics
-  const AnimatedNumber = ({ value, duration = 1000, suffix = '' }) => {
+  const AnimatedNumber = ({ value, duration = 2000, suffix = '' }) => {
     const [display, setDisplay] = React.useState(0);
     React.useEffect(() => {
       let start = 0;
@@ -132,7 +147,7 @@ export default function Home() {
     <div className="relative overflow-hidden">
       <Header />
       {/* Hero Section */}
-      <section className="relative h-screen">
+  <section className="relative h-screen" data-aos="fade-up">
   {/* Video Background */}
   <div className="absolute inset-0 bg-black z-0 animate-fade-in">
           <video
@@ -175,13 +190,17 @@ export default function Home() {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Link 
-                to="/blog" 
+              <button
+                onClick={() => {
+                  if (whoWeAreRef.current) {
+                    whoWeAreRef.current.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
                 className="px-8 py-4 text-white rounded-lg font-semibold text-lg shadow-lg transition-all duration-300 transform hover:scale-105"
                 style={{ background: 'linear-gradient(to right, #b57edc, #a259c6, #8d4bb7, #7b3fa2, #6c3483)' }}
               >
                 Get Started Today
-              </Link>
+              </button>
             </div>
           </div>
         </div>
@@ -191,11 +210,11 @@ export default function Home() {
       {/* Animated Metrics Script */}
 
       {/* Who We Are Section */}
-      <section className="relative z-20 bg-white py-20">
+  <section ref={whoWeAreRef} className="relative z-20 bg-white py-20" data-aos="fade-right">
   <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 animate-fade-in-up">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch">
             {/* Left Side - Image */}
-            <div className="relative h-full">
+            <div className="relative h-full" data-aos="fade-right">
               <div className="relative rounded-2xl overflow-hidden shadow-2xl h-full">
                 <img
                   src="https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=800&q=80"
@@ -220,71 +239,65 @@ export default function Home() {
             </div>
 
             {/* Right Side - Content */}
-            <div className="space-y-6">
-                <div className="inline-flex items-center px-4 py-2 rounded-full" style={{ background: '#6c3477' }}>
-                <span className="font-semibold text-sm text-white">About Us</span>
-              </div>
-              
-              <h2 className="text-4xl md:text-5xl font-bold" style={{ color: '#6c3477' }}>
-                Who We Are
-              </h2>
-              
-              <p className="text-lg text-gray-600 leading-relaxed">
-                We are a passionate team of digital marketing experts dedicated to transforming businesses through innovative strategies and cutting-edge technology. With years of experience in the digital landscape, we understand what it takes to drive real results.
-              </p>
-              
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-6">
-                <div className="flex items-start space-x-3">
-                  <div className="flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: '#6c3477' }}>
-                    <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
+            <div className="space-y-6" data-aos="fade-left">
+                <h2 className="text-4xl md:text-5xl font-bold" style={{ color: '#2d174d' }}>Why Choose Us</h2>
+                <p className="text-lg text-gray-700 leading-relaxed mb-6">
+                  Discover what sets us apart: expertise, data-driven results, 24/7 support, and a proven track record of successful website projects. Partner with us for your website's digital growth and online success.
+                </p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-2">
+                  <div className="flex items-start gap-4 bg-[#f6f2fa] rounded-xl p-4">
+                    <div className="flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center bg-[#6c3477]">
+                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-[#2d174d] mb-1">Expert Team</h3>
+                      <p className="text-gray-600 text-sm">Certified professionals with proven website project track records.</p>
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="font-semibold" style={{ color: '#6c3477' }}>Expert Team</h3>
-                    <p className="text-gray-600 text-sm">Certified professionals with proven track records</p>
+                  <div className="flex items-start gap-4 bg-[#f6f2fa] rounded-xl p-4">
+                    <div className="flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center bg-[#6c3477]">
+                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-[#2d174d] mb-1">Data-Driven</h3>
+                      <p className="text-gray-600 text-sm">Website results backed by analytics and insights.</p>
+                    </div>
                   </div>
-                </div>
-                
-                <div className="flex items-start space-x-3">
-                    <div className="flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: '#e3b6d1' }}>
-                    <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                    </svg>
+                  <div className="flex items-start gap-4 bg-[#f6f2fa] rounded-xl p-4">
+                    <div className="flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center bg-[#6c3477]">
+                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-[#2d174d] mb-1">24/7 Support</h3>
+                      <p className="text-gray-600 text-sm">Round-the-clock website assistance for your success.</p>
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="font-semibold" style={{ color: '#6c3477' }}>Data-Driven</h3>
-                    <p className="text-gray-600 text-sm">Results backed by analytics and insights</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-start space-x-3">
-                    <div className="flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: '#53295a' }}>
-                    <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold" style={{ color: '#6c3477' }}>24/7 Support</h3>
-                    <p className="text-gray-600 text-sm">Round-the-clock assistance for your success</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-start space-x-3">
-                    <div className="flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: 'linear-gradient(to right, #b57edc, #a259c6, #8d4bb7, #7b3fa2, #6c3483)' }}>
-                    <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold" style={{ color: '#6c3477' }}>Proven Results</h3>
-                    <p className="text-gray-600 text-sm">Track record of successful campaigns</p>
+                  <div className="flex items-start gap-4 bg-[#f6f2fa] rounded-xl p-4">
+                    <div className="flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center bg-[#6c3477]">
+                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                        <rect x="3" y="3" width="18" height="18" rx="4" stroke="currentColor" strokeWidth="2" fill="none" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 17v-6a4 4 0 018 0v6" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-[#2d174d] mb-1">Proven Results</h3>
+                      <p className="text-gray-600 text-sm">Proven track record of successful website campaigns.</p>
+                    </div>
                   </div>
                 </div>
-              </div>
               
               <div className="pt-6">
-                    <button className="px-8 py-3 text-white rounded-lg font-semibold transition-all duration-300 transform hover:scale-105" style={{ background: 'linear-gradient(to right, #b57edc, #a259c6, #8d4bb7, #7b3fa2, #6c3483)' }}>
+                <button
+                  className="px-8 py-3 text-white rounded-lg font-semibold transition-all duration-300 transform hover:scale-105"
+                  style={{ background: 'linear-gradient(to right, #b57edc, #a259c6, #8d4bb7, #7b3fa2, #6c3483)' }}
+                  onClick={() => navigate('/about')}
+                >
                   Learn More About Us
                 </button>
               </div>
@@ -296,7 +309,8 @@ export default function Home() {
 
       {/* Our Top Services Section with purple background */}
       <section
-  className="relative z-20 py-20 animate-fade-in"
+        className="relative z-20 py-20 animate-fade-in"
+        data-aos="fade-left"
         style={{
           backgroundColor: '#c7a6fa'
         }}
@@ -367,7 +381,7 @@ export default function Home() {
                   >
                     {card.title.replace(/\s*\(.*\)/, '')}
                   </h3>
-                  <p className="text-base text-center text-white font-medium">
+                  <p className="text-base text-center text-justify text-white font-medium">
                     {card.subtitle}
                   </p>
                 </div>
@@ -379,11 +393,11 @@ export default function Home() {
 
 
       {/* Impact Metrics Section (reference style) */}
-      <section className="relative z-10 py-20 bg-white">
+  <section className="relative z-10 py-20 bg-white" data-aos="fade-up">
   <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 animate-fade-in">
           <div className="flex flex-col lg:flex-row items-center lg:items-start justify-between mb-12 gap-8">
             {/* Main Metric and Description (Digital Marketing) */}
-            <div className="flex-1 flex flex-col items-start">
+            <div className="flex-1 flex flex-col items-start" data-aos="fade-right">
               {/* Styled lines as in the reference image */}
               <div className="mb-2">
                 <span style={{ display: 'block', color: '#111', fontWeight: 700, fontSize: '2.5rem', letterSpacing: '1px', lineHeight: 1 }}>marketing is</span>
@@ -412,15 +426,15 @@ export default function Home() {
                 </span>
               </div>
               <div className="flex items-center mb-2">
-                <span className="text-6xl md:text-7xl font-extrabold text-[#53295a] mr-2 metric-scroll" data-target="50">0</span>
+                <span className="text-6xl md:text-7xl font-extrabold text-[#53295a] mr-2 metric-scroll" data-target="50">21</span>
                 <span className="text-lg font-semibold slide-in-metric-label" style={{ color: '#8d6fd1' }}>Campaigns Launched</span>
               </div>
-              <p className="text-lg text-[#53295a] max-w-2xl mb-4">
+              <p className="text-lg text-justify text-[#53295a] max-w-2xl mb-4">
                 We have successfully launched 50+ digital marketing campaigns, helping brands increase their online presence, generate quality leads, and boost ROI. Our expertise covers SEO, social media, PPC, content marketing, and analytics—empowering businesses to reach their target audience and achieve measurable growth in the digital landscape.
               </p>
             </div>
             {/* Impact Image on the right */}
-            <div className="flex-1 flex justify-center items-center mt-8 lg:mt-0">
+            <div className="flex-1 flex justify-center items-center mt-8 lg:mt-0" data-aos="fade-left">
               <img
                 src="/src/assets/impact.jpg"
                 alt="Impact Metrics"
@@ -453,11 +467,11 @@ export default function Home() {
 
 
       {/* What Our Clients Say Section */}
-  <section className="relative z-10 py-20 bg-[#c7a6fa]">
+  <section className="relative z-10 py-20 bg-[#c7a6fa]" data-aos="fade-right">
   <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 animate-fade-in-up">
           <div className="bg-white bg-opacity-80 rounded-2xl shadow-xl p-10">
             <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8 gap-6">
-              <div>
+              <div data-aos="fade-right">
                 <h2 className="text-4xl md:text-5xl font-bold mb-2" style={{ color: '#53295a' }}>
                   What Our <span style={{ color: '#a259c6' }}>Clients Say</span>
                 </h2>
@@ -559,9 +573,9 @@ export default function Home() {
                               <svg className="w-6 h-6 mr-2" style={{ color: t.icon }} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7v4a2 2 0 01-2 2h-3v3a2 2 0 01-2 2H7a2 2 0 01-2-2v-3a2 2 0 012-2h3V7a2 2 0 012-2h3a2 2 0 012 2z" /></svg>
                               <span className="text-xs text-gray-400">{t.title}</span>
                             </div>
-                            <p className="text-gray-700 text-sm mb-4">{t.text}</p>
+                            <p className="text-gray-700  text-justify text-sm mb-4">{t.text}</p>
                           </div>
-                          <div className="flex items-center mt-4">
+                          <div className="flex items-center mt-4" data-aos="fade-left">
                             <img src={t.img} alt={t.name} className="w-10 h-10 rounded-full mr-3" />
                             <div>
                               <span className="font-bold text-[#53295a] text-sm">{t.name}</span>
@@ -597,7 +611,7 @@ export default function Home() {
         </div>
       </section>
       {/* CTA Section (moved below testimonials) */}
-      <section className="relative z-20 bg-white py-20">
+  <section className="relative z-20 bg-white py-20" data-aos="fade-left">
   <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 animate-fade-in">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             {/* Left: Content */}
@@ -606,17 +620,17 @@ export default function Home() {
                 <span className="text-black">Get Started </span>
                 <span className="text-[#a259c6]">Today</span>
               </h2>
-              <p className="text-lg mb-8 text-[#53295a] max-w-2xl">
+              <p className="text-lg mb-8 text-justify text-[#53295a] max-w-2xl">
                 Drive growth, increase engagement, and dominate your market with our cutting-edge digital marketing strategies. 
                 From SEO to social media, we've got your success covered.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <Link 
-                  to="/blog" 
+                <button
+                  onClick={() => navigate('/contactus')}
                   className="px-8 py-4 text-white rounded-lg font-semibold text-lg shadow-lg transition-all duration-300 transform hover:scale-105 bg-gradient-to-r from-[#b57edc] via-[#a259c6] to-[#6c3483]"
                 >
                   Get Started Today
-                </Link>
+                </button>
               </div>
             </div>
             {/* Right: Image */}
@@ -629,4 +643,4 @@ export default function Home() {
       <Footer />
     </div>
   );
-} 
+}

@@ -1,7 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import AOS from "aos";
+import "aos/dist/aos.css";
 import Header from "../Header";
 import Footer from "../Footer";
 import home2hero from "../assets/home2hero.mp4";
+import whychoose from "../assets/whychoose.jpg";
+import ceoBg from "../assets/ceo.jpg";
 
 // Team members array and TeamCarousel component
 const teamMembers = [
@@ -133,11 +138,18 @@ function TrendsTips() {
 }
 
 const Home2 = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    AOS.init({
+      duration: 1000,
+      once: false,
+    });
+  }, []);
   return (
     <div className="relative min-h-screen w-full overflow-hidden">
       <Header />
       {/* Hero Section with Video Background */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden">
+      <section className="relative h-screen flex items-center justify-center overflow-hidden" data-aos="fade-up">
         {/* Video Background */}
         <video
           autoPlay
@@ -169,136 +181,222 @@ const Home2 = () => {
           </p>
         </div>
       </section>
-      {/* Meet Our Team Section */}
-      <section className="relative z-20 bg-white py-20">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 animate-fade-in-up">
-          <h2 className="text-4xl md:text-5xl font-extrabold mb-12 text-[#a259c6] tracking-tight text-center">MEET OUR TEAM</h2>
-          <TeamCarousel />
+      {/* Meet Our Team Section (redesigned) */}
+  <section className="relative z-20 bg-white py-20" data-aos="fade-right">
+        <div className="max-w-5xl mx-auto px-4 animate-fade-in-up">
+          <h2 className="text-4xl md:text-5xl font-bold mb-2 text-center text-[#222]" style={{ fontFamily: 'serif' }}>Meet The Team</h2>
+          <p className="text-lg text-center mb-10 text-gray-600">Behind The Creative Process Of Building Your Brand</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-12 gap-x-6">
+            {/* Row 1 */}
+            <div className="flex flex-col items-center">
+              <div className="w-32 h-32 rounded-full border-8 border-[#a259c6] flex items-center justify-center overflow-hidden mb-4">
+                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Aaren Davis" className="w-full h-full object-cover" />
+              </div>
+              <div className="text-lg font-semibold text-gray-800">Aaren Davis</div>
+              <div className="text-sm text-gray-500 mt-1">MARKETING EXPERT</div>
+            </div>
+            <div className="flex flex-col items-center">
+              <div className="w-32 h-32 rounded-full border-8 border-[#a259c6] flex items-center justify-center overflow-hidden mb-4">
+                <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Cadence Daniel" className="w-full h-full object-cover" />
+              </div>
+              <div className="text-lg font-semibold text-gray-800">Cadence Daniel</div>
+              <div className="text-sm text-gray-500 mt-1">ADVERTISING HEAD</div>
+            </div>
+            <div className="flex flex-col items-center">
+              <div className="w-32 h-32 rounded-full border-8 border-[#a259c6] flex items-center justify-center overflow-hidden mb-4">
+                <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Oliver Wilson" className="w-full h-full object-cover" />
+              </div>
+              <div className="text-lg font-semibold text-gray-800">Oliver Wilson</div>
+              <div className="text-sm text-gray-500 mt-1">CONTENT CREATOR</div>
+            </div>
+            {/* Row 2 */}
+            <div className="flex flex-col items-center">
+              <div className="w-32 h-32 rounded-full border-8 border-[#a259c6] flex items-center justify-center overflow-hidden mb-4">
+                <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Beatrice Dubois" className="w-full h-full object-cover" />
+              </div>
+              <div className="text-lg font-semibold text-gray-800">Beatrice Dubois</div>
+              <div className="text-sm text-gray-500 mt-1">GRAPHICS DESIGNER</div>
+            </div>
+            <div className="flex flex-col items-center">
+              <div className="w-32 h-32 rounded-full border-8 border-[#a259c6] flex items-center justify-center overflow-hidden mb-4">
+                <img src="https://randomuser.me/api/portraits/men/76.jpg" alt="Crystal Jerry" className="w-full h-full object-cover" />
+              </div>
+              <div className="text-lg font-semibold text-gray-800">Crystal Jerry</div>
+              <div className="text-sm text-gray-500 mt-1">CAMPAIGN LEAD</div>
+            </div>
+            <div className="flex flex-col items-center">
+              <div className="w-32 h-32 rounded-full border-8 border-[#a259c6] flex items-center justify-center overflow-hidden mb-4">
+                <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Sulema Silva" className="w-full h-full object-cover" />
+              </div>
+              <div className="text-lg font-semibold text-gray-800">Sulema Silva</div>
+              <div className="text-sm text-gray-500 mt-1">DIGITAL LEADER</div>
+            </div>
+          </div>
         </div>
       </section>
       {/* Meet Our CEO Section */}
-      <section className="relative z-20 bg-white py-20">
-        <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-10 px-4 animate-fade-in-up">
-          {/* Left: Quote and text */}
-          <div className="flex-1 flex flex-col justify-center items-start">
-            <div className="flex items-center mb-4">
-              <svg className="w-10 h-10 text-[#a259c6] mr-2" fill="currentColor" viewBox="0 0 24 24"><path d="M7.17 6.17A7.003 7.003 0 0 0 2 13c0 1.1.9 2 2 2h3a2 2 0 0 0 2-2V7a1 1 0 0 0-1-1c-.28 0-.53.11-.71.29l-.12.12zM17.17 6.17A7.003 7.003 0 0 0 12 13c0 1.1.9 2 2 2h3a2 2 0 0 0 2-2V7a1 1 0 0 0-1-1c-.28 0-.53.11-.71.29l-.12.12z"/></svg>
-              <span className="text-[#a259c6] font-bold text-lg">Meet Our</span>
-              <span className="ml-2 bg-[#ffb347] text-white font-extrabold text-2xl px-4 py-2 rounded-xl shadow-lg">CEO</span>
+      <section
+        className="relative z-20 py-20 px-0 flex items-left justify-left"
+        style={{
+          backgroundImage: `url(${ceoBg})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+        }}
+        data-aos="fade-left"
+      >
+        <div className="w-full pl-20 mx-auto flex flex-col md:flex-row items-start  px-4 animate-fade-in-up">
+          {/* Left: CEO Content (fully left-aligned) */}
+          <div className="flex-1 flex flex-col  items-start text-left bg-opacity-90 rounded-3xl shadow-xl">
+            <div className="flex items-left mb-4">
+              <svg className="w-8 h-8 text-[#a259c6] mr-2" fill="currentColor" viewBox="0 0 24 24"><path d="M7.17 6.17A7.003 7.003 0 0 0 2 13c0 1.1.9 2 2 2h3a2 2 0 0 0 2-2V7a1 1 0 0 0-1-1c-.28 0-.53.11-.71.29l-.12.12zM17.17 6.17A7.003 7.003 0 0 0 12 13c0 1.1.9 2 2 2h3a2 2 0 0 0 2-2V7a1 1 0 0 0-1-1c-.28 0-.53.11-.71.29l-.12.12z"/></svg>
+              <span className="text-[#fff] font-bold text-lg">Meet Our</span>
+              <span className="ml-2 bg-[#a259c6] text-white font-extrabold text-2xl px-4 py-2 rounded-xl shadow-lg">CEO</span>
             </div>
-            <p className="text-gray-700 text-lg mb-4">This is a sample text. Insert your desired text here. This is a sample text. Insert your desired text here. This is a sample text.</p>
-            <p className="text-gray-700 text-lg">Insert your desired text here. This is a sample text. Insert your desired text here.</p>
-          </div>
-          {/* Right: CEO Image with circle and hexagons */}
-          <div className="flex-1 flex justify-center items-center relative">
-            <div className="relative">
-              <div className="w-64 h-64 rounded-full overflow-hidden bg-gray-200 flex items-center justify-center shadow-xl">
-                <img src="https://randomuser.me/api/portraits/women/43.jpg" alt="CEO" className="w-full h-full object-cover" />
-              </div>
-              {/* Removed blue color boxes */}
-            </div>
+            <h3 className="text-2xl font-bold text-[#fff] mb-2 text-left">Alexandra Bennett</h3>
+            <p className="text-[#fff] font-semibold mb-2 text-left">Founder & Chief Executive Officer</p>
+            <p className="text-white text-lg mb-2 text-left">Alexandra brings over 15 years of experience in digital marketing, brand strategy, and busines.<br></br>Her vision and passion for innovation have driven our agency to the forefront of the industry.</p>
+            <ul className="list-disc pl-5 text-white mb-2 text-left">
+              <li>Expert in multi-channel marketing and growth strategies</li>
+              <li>Featured speaker at top marketing conferences</li>
+              <li>Mentor to young entrepreneurs and startups</li>
+              <li>Believes in data-driven creativity and client success</li>
+            </ul>
+            <p className="text-white text-base mt-2 text-left">"My mission is to empower brands to reach their full potential through innovative digital solutions and<br></br>a relentless focus on results."</p>
           </div>
         </div>
       </section>
-      {/* Why Choose Us Section (inlined) */}
-      <section className="relative w-full py-20 bg-white flex items-center justify-center">
+      {/* Why Choose Us Section (Who We Are) */}
+  <section className="relative w-full py-20 bg-white flex items-center justify-center" data-aos="fade-right">
         <div className="w-full max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-0 md:gap-8 px-4 md:px-0">
-          {/* Left: Content */}
-          <div className="flex-1 flex flex-col justify-center items-start md:pr-8">
-            <h2 className="text-3xl md:text-4xl font-extrabold mb-4 text-[#222]">Why Choose Us</h2>
-            <p className="text-gray-600 mb-8 max-w-md">Center what sets you apart and motivate visitors to believe and engage with. Elegant, readable, and separated from image or lifestyle.</p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full">
-              {[
-                {
-                  icon: (
-                    <svg className="w-7 h-7 text-[#a259c6]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
-                  ),
-                  title: "Expert Team",
-                  desc: "Certified professionals with proven track records."
-                },
-                {
-                  icon: (
-                    <svg className="w-7 h-7 text-[#a259c6]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
-                  ),
-                  title: "Proven Results",
-                  desc: "Track record of successful campaigns."
-                },
-                {
-                  icon: (
-                    <svg className="w-7 h-7 text-[#a259c6]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
-                  ),
-                  title: "24/7 Support",
-                  desc: "Round-the-clock assistance for your success."
-                },
-                {
-                  icon: (
-                    <svg className="w-7 h-7 text-[#a259c6]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
-                  ),
-                  title: "Smart New Methods",
-                  desc: "Innovative solutions tailored to your needs."
-                },
-              ].map((f, i) => (
-                <div key={i} className="flex items-start gap-4">
-                  <div className="flex-shrink-0">{f.icon}</div>
-                  <div>
-                    <h3 className="font-semibold text-[#53295a] mb-1">{f.title}</h3>
-                    <p className="text-gray-600 text-sm">{f.desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-          {/* Right: Image with decorative dots */}
+          {/* Left: Image */}
           <div className="flex-1 flex items-center justify-center relative mt-10 md:mt-0">
             {/* Decorative dots */}
             <div className="absolute left-0 top-0 z-10 hidden md:block" style={{ transform: 'translate(-30px, -30px)' }}>
               <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
                 {Array.from({ length: 5 }).map((_, row) => (
                   Array.from({ length: 5 }).map((_, col) => (
-                    <rect key={row + '-' + col} x={col * 12} y={row * 12} width="6" height="6" rx="2" fill="#ffe066" />
+                    <rect key={row + '-' + col} x={col * 12} y={row * 12} width="6" height="6" rx="2" fill="#a259c6" />
                   ))
                 ))}
               </svg>
             </div>
-            <div className="w-full max-w-xs md:max-w-sm h-64 md:h-80 rounded-3xl shadow-2xl overflow-hidden bg-gray-100">
-              <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=700&q=80" alt="Why Choose Us Visual" className="w-full h-full object-cover" />
+            <div className="w-full max-w-md md:max-w-lg h-96 md:h-[25rem] rounded-3xl shadow-2xl overflow-hidden bg-gray-100">
+              <img src={whychoose} alt="Who We Are Visual" className="w-full h-full object-cover" />
             </div>
           </div>
-        </div>
+          {/* Right: Content inside white box with dark purple icons */}
+          <div className="flex-1 flex flex-col justify-center items-start md:pr-8">
+              <h2 className="text-3xl md:text-4xl font-extrabold mb-4 text-[#53295a]">Why Choose Us</h2>
+              <p className="text-gray-600 mb-8 max-w-md">Discover what sets us apart: expertise, data-driven results, 24/7 support, and a proven track record of successful website projects. Partner with us for your website's digital growth and online success.</p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full">
+                {/* All icons in same dark purple (#53295a) */}
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-[#53295a] flex items-center justify-center">
+                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-[#53295a] mb-1">Expert Team</h3>
+                    <p className="text-gray-600 text-sm">Certified professionals with proven website project track records.</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-[#53295a] flex items-center justify-center">
+                    <svg className="w-6 h-6 text-[#fff]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-[#53295a] mb-1">Data-Driven</h3>
+                    <p className="text-gray-600 text-sm">Website results backed by analytics and insights.</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-[#53295a] flex items-center justify-center">
+                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" fill="none" /><path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6l4 2" /></svg>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-[#53295a] mb-1">24/7 Support</h3>
+                    <p className="text-gray-600 text-sm">Round-the-clock website assistance for your success.</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-[#53295a] flex items-center justify-center">
+                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4" stroke="currentColor" strokeWidth="2" fill="none" /><path strokeLinecap="round" strokeLinejoin="round" d="M8 17v-6a4 4 0 018 0v6" /></svg>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-[#53295a] mb-1">Proven Results</h3>
+                    <p className="text-gray-600 text-sm">Proven track record of successful campaigns.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
       </section>
 
       {/* Trends & Tips Corner Section (inlined) */}
-      <section className="w-full py-20 bg-gradient-to-br from-[#f8f6ff] to-[#f3f9ff] flex flex-col items-center">
-
+  <section className="w-full py-20 flex flex-col items-center" style={{ background: '#BF77F6' }} data-aos="fade-up">
         <div className="w-full max-w-4xl mx-auto rounded-3xl shadow-xl bg-white p-8 md:p-12 flex flex-col items-center">
           <h2 className="text-3xl md:text-4xl font-extrabold text-[#a259c6] mb-6 text-center">Trends & Tips Corner</h2>
           <TrendsTips />
         </div>
       </section>
 
-      {/* Insights Section (inlined) */}
-      <section className="w-full py-20 bg-white flex flex-col items-center">
-        <div className="w-full max-w-6xl mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-extrabold text-[#a259c6] mb-10 text-center">Insights</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Example feature cards */}
-            <div className="bg-[#f8f6ff] rounded-2xl shadow-lg p-8 flex flex-col items-center">
-              <svg className="w-12 h-12 text-[#a259c6] mb-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
-              <h3 className="font-bold text-lg mb-2">SEO Best Practices</h3>
-              <p className="text-gray-600 text-center">Stay ahead with the latest SEO strategies for 2025 and beyond.</p>
-            </div>
-            <div className="bg-[#f8f6ff] rounded-2xl shadow-lg p-8 flex flex-col items-center">
-              <svg className="w-12 h-12 text-[#a259c6] mb-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
-              <h3 className="font-bold text-lg mb-2">Content Marketing</h3>
-              <p className="text-gray-600 text-center">Create compelling content that drives engagement and conversions.</p>
-            </div>
-            <div className="bg-[#f8f6ff] rounded-2xl shadow-lg p-8 flex flex-col items-center">
-              <svg className="w-12 h-12 text-[#a259c6] mb-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
-              <h3 className="font-bold text-lg mb-2">Social Media Trends</h3>
-              <p className="text-gray-600 text-center">Discover what's trending on social platforms and how to leverage it.</p>
+      {/* Insights Section (redesigned) */}
+      <section className="w-full py-20 bg-white flex justify-center items-center">
+          {/* Left: Image */}
+          <div className="flex-1 flex items-center justify-center min-h-300" data-aos="fade-left">
+            <div className="w-full max-w-lg h-[30rem] rounded-3xl shadow-2xl overflow-hidden bg-gray-100 flex items-center justify-center relative">
+              <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=700&q=80" alt="Digital Marketing Insights Visual" className="w-full h-full object-cover" />
+              {/* Decorative circles */}
+              <div className="absolute left-[-30px] bottom-[-30px] w-24 h-24 bg-[#a259c6] opacity-20 rounded-full z-10"></div>
+              <div className="absolute right-[-30px] top-[-30px] w-16 h-16 bg-[#a259c6] opacity-20 rounded-full z-10"></div>
             </div>
           </div>
-        </div>
+          {/* Right: Content */}
+          <div className="flex-1 flex flex-col justify-center items-start min-h-80" data-aos="fade-right">
+            <h2 className="text-4xl font-extrabold mb-4 text-[#222]">
+              <span className="text-[#222]">Digital </span>
+              <span className="text-[#a259c6]">Marketing</span>
+              <span className="text-[#222] ml-2">Insights</span>
+            </h2>
+            <p className="text-gray-700 mb-8 max-w-xl">
+              Discover the latest trends, research, and expert insights in digital marketing. Our comprehensive analysis helps you make informed decisions to grow your brand, reach your audience, and maximize ROI in the digital era.
+            </p>
+            <div className="flex flex-col gap-6 mb-8 w-full">
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#a259c6] flex items-center justify-center">
+                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+                </div>
+                <div>
+                  <h3 className="font-bold text-[#53295a] mb-1">Data-Driven Strategies</h3>
+                  <p className="text-gray-600 text-sm">All our recommendations are backed by analytics, industry research, and proven digital methodologies.</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#a259c6] flex items-center justify-center">
+                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                </div>
+                <div>
+                  <h3 className="font-bold text-[#53295a] mb-1">Personalized Campaigns</h3>
+                  <p className="text-gray-600 text-sm">Tailored marketing strategies that adapt to your unique business goals and audience.</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#a259c6] flex items-center justify-center">
+                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a4 4 0 00-3-3.87M9 20H4v-2a4 4 0 013-3.87m9-4V6a4 4 0 00-8 0v4m8 0a4 4 0 01-8 0" /></svg>
+                </div>
+                <div>
+                  <h3 className="font-bold text-[#53295a] mb-1">Community & Support</h3>
+                  <p className="text-gray-600 text-sm">Join a supportive network of marketers and get expert help on your digital journey.</p>
+                </div>
+              </div>
+            </div>
+            <button
+              className="mt-2 px-6 py-3 rounded bg-[#a259c6] text-white font-semibold shadow hover:bg-[#7b3fa2] transition"
+              onClick={() => navigate('/blog')}
+            >
+              Explore Insights
+            </button>
+          </div>
       </section>
       <Footer />
     </div>

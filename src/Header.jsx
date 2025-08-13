@@ -1,3 +1,17 @@
+  const [isAvatarDropdownOpen, setIsAvatarDropdownOpen] = useState(false);
+  const navigate = window.location;
+  // Get logged-in user initials
+  let initials = "";
+  const loggedInEmail = localStorage.getItem("loggedInUser");
+  if (loggedInEmail) {
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+    const user = users.find(u => u.email === loggedInEmail);
+    if (user) {
+      const first = user.firstName ? user.firstName[0] : "";
+      const last = user.lastName ? user.lastName[0] : "";
+      initials = (first + last).toUpperCase();
+    }
+  }
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "./assets/logo.png";
@@ -87,13 +101,22 @@ export default function Header() {
               About Us
             </Link>
 
-            {/* Services Dropdown */}
-            <div className="relative">
+            {/* Services Dropdown with main link */}
+            <div className="relative flex items-center">
+              <Link
+                to="/services"
+                className="text-gray-700 hover:text-blue-600 transition-colors duration-200 pr-1"
+                style={{ display: 'flex', alignItems: 'center' }}
+                onClick={() => setIsServicesDropdownOpen(false)}
+              >
+                Services
+              </Link>
               <button
                 onClick={toggleServicesDropdown}
-                className="flex items-center space-x-1 text-gray-700 hover:text-blue-600 transition-colors duration-200"
+                className="flex items-center text-gray-700 hover:text-blue-600 transition-colors duration-200"
+                style={{ paddingLeft: 2 }}
+                aria-label="Toggle Services Dropdown"
               >
-                <span>Services</span>
                 <svg
                   className={`w-4 h-4 transition-transform duration-200 ${isServicesDropdownOpen ? "rotate-180" : ""}`}
                   fill="none"
@@ -119,35 +142,35 @@ export default function Header() {
                       Search Engine Optimization (SEO)
                     </Link>
                     <Link
-                      to="/services#smm"
+                      to="/services/smm"
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                       onClick={() => setIsServicesDropdownOpen(false)}
                     >
                       Social Media Marketing (SMM)
                     </Link>
                     <Link
-                      to="/services#ppc"
+                      to="/services/ppc"
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                       onClick={() => setIsServicesDropdownOpen(false)}
                     >
                       Pay-Per-Click Advertising (PPC)
                     </Link>
                     <Link
-                      to="/services#content"
+                      to="/services/content"
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                       onClick={() => setIsServicesDropdownOpen(false)}
                     >
                       Content Marketing
                     </Link>
                     <Link
-                      to="/services#email"
+                      to="/services/email"
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                       onClick={() => setIsServicesDropdownOpen(false)}
                     >
                       Email Marketing & Automation
                     </Link>
                     <Link
-                      to="/services#web"
+                      to="/services/web"
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                       onClick={() => setIsServicesDropdownOpen(false)}
                     >
@@ -166,7 +189,7 @@ export default function Header() {
             </Link>
 
             <Link
-              to="/contact"
+              to="/contactus"
               className="text-gray-700 hover:text-blue-600 transition-colors duration-200"
             >
               Contact Us
@@ -195,9 +218,29 @@ export default function Header() {
               </button>
 
               {/* Profile button */}
-              <button className="w-10 h-10 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full flex items-center justify-center font-semibold hover:from-pink-600 hover:to-purple-600 transition-all duration-200">
-                HB
-              </button>
+              <div className="relative">
+                <button
+                  className="w-10 h-10 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full flex items-center justify-center font-semibold hover:from-pink-600 hover:to-purple-600 transition-all duration-200"
+                  onClick={() => setIsAvatarDropdownOpen((open) => !open)}
+                  aria-label="Open profile menu"
+                >
+                  {initials || "?"}
+                </button>
+                {isAvatarDropdownOpen && (
+                  <div className="absolute right-0 mt-2 w-32 bg-white rounded-md shadow-lg border border-gray-200 z-50">
+                    <button
+                      className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      onClick={() => {
+                        localStorage.removeItem("loggedInUser");
+                        setIsAvatarDropdownOpen(false);
+                        window.location.href = "/login";
+                      }}
+                    >
+                      Logout
+                    </button>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>

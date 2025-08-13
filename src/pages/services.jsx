@@ -1,14 +1,13 @@
-import React from "react";
-import Header from "../Header";
-import Footer from "../Footer";
-import servicesHero from "../assets/serviceshero.mp4";
 
 export default function Services() {
+    useEffect(() => {
+        AOS.init({ duration: 1000, once: false });
+    }, []);
     return (
         <>
             <Header />
             {/* Hero Section */}
-            <section className="relative w-full h-screen flex items-center justify-center overflow-hidden">
+            <section className="relative w-full h-screen flex items-center justify-center overflow-hidden" data-aos="fade-up">
                 <video
                     className="absolute inset-0 w-full h-full object-cover z-0"
                     src={servicesHero}
@@ -19,13 +18,13 @@ export default function Services() {
                 />
                 <div className="absolute inset-0 bg-black bg-opacity-60 z-10"></div>
                 <div className="relative z-20 flex flex-col items-center justify-center text-center w-full px-4">
-                    <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-2 drop-shadow-lg">Our Services</h1>
+                    <h1 className="text-4xl md:text-6xl font-extrabold text-[#a259c6] mb-2 drop-shadow-lg">Our Services</h1>
                     <p className="text-lg md:text-xl text-white mb-2 max-w-2xl mx-auto drop-shadow-md">Discover the full suite of digital marketing solutions we offer to grow your business online.</p>
                 </div>
             </section>
 
             {/* Our Services Section (modern grid cards) */}
-            <section className="w-full py-16 bg-white flex flex-col items-center">
+            <section className="w-full py-16 bg-[#f3e8ff] flex flex-col items-center" data-aos="fade-up">
                 <h2 className="text-3xl md:text-4xl font-extrabold mb-12 tracking-wide text-[#232136]">Our Services</h2>
                 <div className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-8 px-4">
                     {/* Card 1 */}
@@ -57,7 +56,7 @@ export default function Services() {
                         <span className="text-[7rem] font-extrabold text-[#a259c6] opacity-20 absolute left-0 top-0 leading-none z-0 select-none" style={{ lineHeight: '0.9', letterSpacing: '-0.1em' }}>04</span>
                         <div className="relative z-10 mt-8">
                             <h3 className="text-2xl font-bold mb-2">Content Marketing</h3>
-                            <p className="text-base text-gray-600">Attract, inform, and convert with compelling content strategies that build authority and trust.</p>
+                            <p className="text-base text-white">Attract, inform, and convert with compelling content strategies that build authority and trust.</p>
                         </div>
                     </div>
                     {/* Card 5 */}
@@ -65,7 +64,7 @@ export default function Services() {
                         <span className="text-[7rem] font-extrabold text-[#a259c6] opacity-20 absolute left-0 top-0 leading-none z-0 select-none" style={{ lineHeight: '0.9', letterSpacing: '-0.1em' }}>05</span>
                         <div className="relative z-10 mt-8">
                             <h3 className="text-2xl font-bold mb-2">Email Marketing & Automation</h3>
-                            <p className="text-base text-gray-600">Nurture leads and boost retention with personalized, automated email campaigns that drive results.</p>
+                            <p className="text-base text-white">Nurture leads and boost retention with personalized, automated email campaigns that drive results.</p>
                         </div>
                     </div>
                     {/* Card 6 */}
@@ -79,7 +78,7 @@ export default function Services() {
                 </div>
             </section>
             {/* How We Work Section */}
-            <section className="w-full py-16 bg-white flex flex-col items-center">
+            <section className="w-full py-16 bg-[#c7a6fa] flex text-justify flex-col items-center" data-aos="fade-right">
                 <h2 className="text-3xl md:text-4xl font-extrabold mb-12 tracking-wide text-[#232136]">How We Work</h2>
                 <div className="w-full max-w-3xl mx-auto flex flex-col gap-0 relative">
                     {/* Timeline Dots and Line */}
@@ -156,10 +155,10 @@ export default function Services() {
                 </div>
             </section>
             {/* Industries We Serve Section (Home1 color theme) */}
-            <section className="w-full py-16 bg-gradient-to-br from-[#f5f3ff] via-[#f3e8ff] to-[#f8fafc] flex flex-col items-center">
+            <section className="w-full py-16 bg-gradient-to-br from-[#f5f3ff] via-[#f3e8ff] to-[#f8fafc] flex flex-col items-center" data-aos="fade-up">
                 <h2 className="text-3xl md:text-4xl font-extrabold mb-4 tracking-wide text-[#7c5dc7] text-center">Industries We Serve</h2>
                 <p className="text-lg text-[#232136] mb-10 text-center max-w-2xl">We empower a diverse range of industries with tailored digital marketing strategies that drive measurable results and sustainable growth.</p>
-                <div className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 px-4">
+                <div className="w-full max-w-6xl grid text-justify grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 px-4">
                     {/* Card 1 */}
                     <div className="rounded-xl shadow-lg bg-white flex flex-col min-h-[220px] overflow-hidden">
                         <div className="bg-[#a259c6] px-6 py-4">
@@ -203,12 +202,12 @@ export default function Services() {
                 </div>
             </section>
             {/* Awards & Recognitions Section */}
-            <section className="w-full py-16 bg-white flex flex-col items-center">
+            <section className="w-full py-16 bg-[#c7a6fa] flex flex-col items-center" data-aos="fade-left">
                 <div className="w-full max-w-6xl flex flex-col md:flex-row items-center gap-12 px-4">
                     {/* Left: Info */}
                     <div className="md:w-1/2 w-full flex flex-col items-start">
-                        <h2 className="text-3xl md:text-4xl font-extrabold mb-4 tracking-wide text-[#7c5dc7]">Awards & Recognitions</h2>
-                        <p className="text-lg text-[#232136] mb-6">Our commitment to excellence has been recognized by industry leaders and trusted organizations. These achievements reflect our dedication to delivering outstanding digital marketing results for our clients.</p>
+                        <h2 className="text-3xl md:text-4xl font-extrabold mb-4 tracking-wide text-[#000]">Awards & Recognitions</h2>
+                        <p className="text-lg text-justify text-[#232136] mb-6">Our commitment to excellence has been recognized by industry leaders and trusted organizations. These achievements reflect our dedication to delivering outstanding digital marketing results for our clients.</p>
                         <ul className="mb-6 space-y-3">
                             <li className="flex items-center"><span className="inline-block w-3 h-3 rounded-full bg-[#a259c6] mr-3"></span><span className="font-semibold text-[#232136]">Google Partner Agency</span></li>
                             <li className="flex items-center"><span className="inline-block w-3 h-3 rounded-full bg-[#7c5dc7] mr-3"></span><span className="font-semibold text-[#232136]">Clutch Top Digital Marketing Company 2025</span></li>
@@ -225,7 +224,7 @@ export default function Services() {
             </section>
 
             {/* CTA Section */}
-            <section className="w-full py-16 bg-gradient-to-br from-[#f5f3ff] via-[#f3e8ff] to-[#f8fafc] flex flex-col items-center">
+            <section className="w-full py-16 bg-gradient-to-br from-[#f5f3ff] via-[#f3e8ff] to-[#f8fafc] flex flex-col items-center" data-aos="fade-up">
                 <h2 className="text-4xl md:text-5xl font-extrabold text-center mb-4 text-[#7c5dc7]">Ready to Grow Your Business Online?</h2>
                 <p className="text-lg text-[#232136] mb-8 text-center max-w-2xl">Join hundreds of businesses who have accelerated their digital marketing success with our expert team and proven strategies.</p>
                 <div className="flex flex-col sm:flex-row gap-6 justify-center">
@@ -237,3 +236,9 @@ export default function Services() {
         </>
     );
 }
+import React, { useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
+import Header from "../Header";
+import Footer from "../Footer";
+import servicesHero from "../assets/serviceshero.mp4";

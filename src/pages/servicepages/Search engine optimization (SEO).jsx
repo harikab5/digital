@@ -4,8 +4,8 @@ import Footer from "../../Footer";
 import seoVideo from "../../assets/seo.mp4";
 
 
-import seoImg from "../../assets/seo.jpg";
-import valuesImg from "../../assets/values.jpg";
+import seo1Img from "../../assets/seo1.jpg";
+import seo2Img from "../../assets/seo2.jpg";
 import faqImg from "../../assets/faq.jpg";
 
 
@@ -39,14 +39,14 @@ export default function SearchEngineOptimization() {
 			<section className="w-full py-16 bg-white flex flex-col items-center">
 				<div className="w-full max-w-6xl flex flex-col md:flex-row items-center gap-12 px-4">
 					{/* Left: Image */}
-					<div className="md:w-1/2 w-full flex justify-center mb-8 md:mb-0">
-						<img src={seoImg} alt="SEO" className="rounded-2xl shadow-xl max-w-md w-full" />
+					<div className="md:w-1/2 w-full flex justify-center items-center mb-8 md:mb-0 min-h-[350px]">
+						<img src={seo1Img} alt="Why SEO Matters" className="rounded-2xl shadow-xl max-w-lg w-full h-full object-cover" />
 					</div>
 					{/* Right: Content */}
 					<div className="md:w-1/2 w-full flex flex-col items-start">
 						<h2 className="text-3xl md:text-4xl font-extrabold mb-4 tracking-wide text-[#7c5dc7]">Why SEO Matters</h2>
-						<p className="text-lg text-[#232136] mb-4">SEO is the foundation of online visibility. With billions of searches every day, ranking higher on search engines means more opportunities for your business to be discovered by potential customers.</p>
-						<ul className="list-disc pl-6 text-[#232136] space-y-2">
+						<p className="text-lg text-[#232136] mb-4 text-justify">SEO is the foundation of online visibility. With billions of searches every day, ranking higher on search engines means more opportunities for your business to be discovered by potential customers.</p>
+						<ul className="list-disc pl-6 text-[#232136] space-y-2 text-justify">
 							<li>Increase organic website traffic and qualified leads</li>
 							<li>Build trust and credibility with your audience</li>
 							<li>Outperform competitors in search results</li>
@@ -56,17 +56,18 @@ export default function SearchEngineOptimization() {
 				</div>
 			</section>
 			{/* Our Approach Section */}
-			<section className="w-full py-16 bg-white flex flex-col items-center">
-			   <div className="w-full max-w-7xl flex flex-col md:flex-row items-center gap-12 px-4">
-				   {/* Left: Text Content */}
-				   <div className="md:w-1/2 w-full flex flex-col items-start">
-					   <h2 className="text-3xl md:text-4xl font-extrabold mb-4 tracking-wide text-[#7c3aed]">Our Approach </h2>
-					   <p className="text-lg text-[#6d28d9] mb-4">Our SEO approach is built on research, transparency, and continuous optimization. We start by understanding your business, audience, and goals, then craft a custom SEO strategy that drives real, measurable results.</p>
-					   <p className="text-base text-[#6d28d9] mb-6">From technical audits and keyword research to on-page optimization and high-quality link building, we use proven methods and the latest tools to boost your search rankings. Our team monitors performance and adapts strategies to keep you ahead of the competition, ensuring your website attracts and converts the right audience.</p>
-				   </div>
-				   {/* Right: Hexagon Timeline */}
-				   <div className="md:w-1/2 w-full flex flex-wrap justify-center gap-6">
-					   {[
+			<section className="w-full py-16 bg-[#c7a6fa] text-white flex flex-col items-center">
+  <h2 className="text-3xl md:text-4xl font-extrabold mb-10 tracking-wide text-black text-center">Our Approach</h2>
+  <div className="w-full max-w-7xl flex flex-col md:flex-row items-center gap-12 px-4">
+    {/* Left: Text Content - Expanded */}
+    <div className="md:w-1/2 w-full flex flex-col items-start">
+      <p className="text-lg mb-4 text-justify">We begin with a deep dive into your website, industry, and competitors. Our SEO experts identify opportunities, technical issues, and keyword gaps to build a custom strategy for your business.</p>
+      <p className="text-base mb-4 text-justify">We optimize your site structure, content, and backlinks, ensuring every element supports higher rankings and better user experience. Our approach is transparent, collaborative, and focused on long-term growth.</p>
+      <p className="text-base mb-4 text-justify">We track progress, report results, and continually refine tactics to keep your site ahead of the competition.</p>
+    </div>
+    {/* Right: Timeline or Image */}
+    <div className="md:w-1/2 w-full flex flex-wrap justify-center gap-6">
+      {[
 						   { title: 'STRATEGY LAUNCH', year: '2020' },
 						   { title: 'BRAND GROWTH', year: '2021' },
 						   { title: 'GLOBAL REACH', year: '2022' },
@@ -84,9 +85,9 @@ export default function SearchEngineOptimization() {
 							   </div>
 						   </div>
 					   ))}
-				   </div>
-			   </div>
-		   </section>
+    </div>
+  </div>
+</section>
 
 		   {/* Benefits Section (SEO) */}
 								 <section className="w-full py-16 bg-white flex flex-col items-center">
@@ -117,14 +118,14 @@ export default function SearchEngineOptimization() {
 															</div>
 															{/* Right: Image */}
 				<div className="md:w-1/2 w-full flex justify-center mb-8 md:mb-0 order-2 md:order-2">
-																			<img src={valuesImg} alt="SEO Benefits" className="rounded-2xl shadow-xl max-w-md w-full object-cover" />
-															</div>
+					<img src={seo2Img} alt="SEO Benefits" className="rounded-2xl shadow-xl max-w-lg w-full h-full object-cover" />
+				</div>
 											</div>
 							</section>
 
 					{/* FAQs Section */}
-					   <section className="w-full py-16 bg-white flex flex-col items-center">
-						   <h2 className="text-3xl md:text-4xl font-extrabold mb-10 tracking-wide text-[#7c3aed] text-center">SEO FAQs</h2>
+					   <section className="w-full py-16 bg-[#c7a6fa] text-white flex flex-col items-center">
+						   <h2 className="text-3xl md:text-4xl font-extrabold mb-10 tracking-wide text-black text-center">SEO FAQs</h2>
 						   <div className="w-full max-w-7xl flex flex-col md:flex-row items-center gap-12 px-4">
 							   {/* Left: FAQ Image */}
 							   <div className="md:w-1/2 w-full flex justify-center mb-8 md:mb-0 min-h-full">
@@ -135,28 +136,28 @@ export default function SearchEngineOptimization() {
 								   <div className="divide-y divide-violet-200 rounded-xl bg-white shadow-lg">
 									   {[
 										   {
-											   q: 'What is SEO and why is it important?',
-											   a: 'SEO (Search Engine Optimization) is the process of optimizing your website to rank higher in search engine results, increasing visibility and attracting more organic traffic.'
+											   q: 'What is SEO?',
+											   a: 'SEO (Search Engine Optimization) is the process of improving your website’s visibility in search engines to attract more organic traffic.'
 										   },
 										   {
-											   q: 'How long does it take to see SEO results?',
-											   a: 'SEO is a long-term strategy. Most websites start seeing significant improvements within 3-6 months, depending on competition and industry.'
+											   q: 'How long does SEO take?',
+											   a: 'SEO is a long-term strategy. Results typically start to show in 3-6 months, depending on competition and your site’s current status.'
 										   },
 										   {
-											   q: 'What are the key components of SEO?',
-											   a: 'Key components include keyword research, on-page optimization, technical SEO, content creation, and link building.'
+											   q: 'Do you offer local SEO?',
+											   a: 'Yes! We optimize your site for local searches, helping you reach customers in your area.'
 										   },
 										   {
-											   q: 'Do I need ongoing SEO services?',
-											   a: 'Yes, SEO requires ongoing effort to maintain and improve rankings as search engine algorithms and competitors change.'
+											   q: 'How do you measure SEO success?',
+											   a: 'We track rankings, traffic, leads, and conversions to measure the impact of our SEO efforts.'
 										   },
 										   {
-											   q: 'Can SEO guarantee top rankings?',
-											   a: 'No reputable agency can guarantee #1 rankings, but effective SEO greatly increases your chances of ranking higher and driving more traffic.'
+											   q: 'Is SEO better than paid ads?',
+											   a: 'SEO delivers sustainable, long-term results, while paid ads offer immediate visibility. We help you balance both for maximum growth.'
 										   }
 									   ].map((faq, idx) => (
 										   <details key={idx} className="group p-6 cursor-pointer">
-											   <summary className="font-semibold text-lg text-[#7c3aed] group-open:text-[#a78bfa] transition-colors flex items-center justify-between">
+											   <summary className="font-semibold text-lg text-black group-open:text-[#a78bfa] transition-colors flex items-center justify-between">
 												   {faq.q}
 												   <span className="ml-2 group-open:rotate-90 transition-transform">
 													   <span className="inline-flex items-center justify-center w-7 h-7 rounded bg-[#7c3aed] border-2 border-[#6d28d9] shadow">
@@ -166,7 +167,7 @@ export default function SearchEngineOptimization() {
 													   </span>
 												   </span>
 											   </summary>
-											   <p className="mt-3 text-[#6d28d9] text-base">{faq.a}</p>
+											   <p className="mt-3  text-black text-base">{faq.a}</p>
 										   </details>
 									   ))}
 								   </div>
@@ -179,7 +180,7 @@ export default function SearchEngineOptimization() {
 						   <div className="w-full max-w-3xl mx-auto text-center">
 							   <h2 className="text-3xl md:text-4xl font-extrabold mb-4 text-[#7c3aed]">Ready to Grow with SEO?</h2>
 							   <p className="text-lg text-[#6d28d9] mb-8">Let our experts help you boost your search rankings and drive real business results. Contact us today for a free SEO consultation!</p>
-							   <a href="/contact" className="inline-block bg-white text-[#7c3aed] font-bold px-8 py-4 rounded-full shadow-lg hover:bg-[#ede9fe] transition">Get Started</a>
+							   <a href="/contact" className="inline-block bg-gradient-to-r from-[#a78bfa] to-[#7c3aed] text-white font-bold px-8 py-4 rounded-full shadow-lg hover:from-[#7c3aed] hover:to-[#a78bfa] transition">Get Started</a>
 						   </div>
 					   </section>
 			<Footer />

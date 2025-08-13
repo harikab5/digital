@@ -1,5 +1,8 @@
+
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import welcomebg from "../assets/welcomebg.jpg";
+import welcomebg1 from "../assets/welcomebg1.jpg";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -39,7 +42,15 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-400 to-cyan-300">
+    <div
+      className="min-h-screen flex items-center justify-center"
+      style={{
+        backgroundImage: `url(${welcomebg})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+      }}
+    >
       <div className="bg-white rounded-lg shadow-lg flex w-full max-w-4xl overflow-hidden">
         <div className="flex-1 flex flex-col justify-center p-10">
           <h1 className="text-2xl font-bold mb-2 text-gray-800">Welcome Back</h1>
@@ -69,7 +80,7 @@ export default function Login() {
             </div>
             <button
               type="submit"
-              className="w-full py-2 bg-gradient-to-r from-blue-500 to-cyan-400 text-white rounded font-semibold hover:from-cyan-400 hover:to-blue-500 transition"
+              className="w-full py-2 bg-gradient-to-r from-[#b57edc] via-[#a259c6] to-[#6c3483] text-white rounded font-semibold transition"
             >
               Login
             </button>
@@ -83,8 +94,8 @@ export default function Login() {
         </div>
         <div className="flex-1 hidden md:flex items-center justify-center bg-gray-100">
           <img
-            src="https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=800&q=80"
-            alt="Digital Marketing"
+            src={welcomebg1}
+            alt="Welcome"
             className="object-cover w-full h-full"
           />
         </div>

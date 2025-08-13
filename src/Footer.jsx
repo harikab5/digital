@@ -21,23 +21,23 @@ export default function Footer() {
         <div>
           <h4 className="font-semibold text-[#7c5dc7] mb-2">Quick Links</h4>
           <ul className="space-y-1">
-            <li><a href="#" className="text-[#53295a] hover:text-[#a259c6]">Home</a></li>
-            <li><a href="#" className="text-[#53295a] hover:text-[#a259c6]">About Us</a></li>
-            <li><a href="#" className="text-[#53295a] hover:text-[#a259c6]">Blog</a></li>
-            <li><a href="#" className="text-[#53295a] hover:text-[#a259c6]">Contact Us</a></li>
-            <li><a href="#" className="text-[#53295a] hover:text-[#a259c6]">Services</a></li>
+            <li><a href="/home1" className="text-[#53295a] hover:text-[#a259c6]">Home</a></li>
+            <li><a href="/about" className="text-[#53295a] hover:text-[#a259c6]">About Us</a></li>
+            <li><a href="/blog" className="text-[#53295a] hover:text-[#a259c6]">Blog</a></li>
+            <li><a href="/contactus" className="text-[#53295a] hover:text-[#a259c6]">Contact Us</a></li>
+            <li><a href="/services" className="text-[#53295a] hover:text-[#a259c6]">Services</a></li>
           </ul>
         </div>
         {/* Explore Services */}
         <div>
           <h4 className="font-semibold text-[#7c5dc7] mb-2">Explore Services</h4>
           <ul className="space-y-1">
-            <li><a href="#" className="text-[#53295a] hover:text-[#a259c6]">SEO</a></li>
-            <li><a href="#" className="text-[#53295a] hover:text-[#a259c6]">Social Media</a></li>
-            <li><a href="#" className="text-[#53295a] hover:text-[#a259c6]">Content Marketing</a></li>
-            <li><a href="#" className="text-[#53295a] hover:text-[#a259c6]">PPC</a></li>
-            <li><a href="#" className="text-[#53295a] hover:text-[#a259c6]">Analytics</a></li>
-            <li><a href="#" className="text-[#53295a] hover:text-[#a259c6]">Web Design</a></li>
+            <li><a href="/services/seo" className="text-[#53295a] hover:text-[#a259c6]">Search Engine Optimization (SEO)</a></li>
+            <li><a href="/services/smm" className="text-[#53295a] hover:text-[#a259c6]">Social Media Marketing (SMM)</a></li>
+            <li><a href="/services/ppc" className="text-[#53295a] hover:text-[#a259c6]">Pay-Per-Click Advertising (PPC)</a></li>
+            <li><a href="/services/content" className="text-[#53295a] hover:text-[#a259c6]">Content Marketing</a></li>
+            <li><a href="/services/email" className="text-[#53295a] hover:text-[#a259c6]">Email Marketing & Automation</a></li>
+            <li><a href="/services/web" className="text-[#53295a] hover:text-[#a259c6]">Website Design & Development</a></li>
           </ul>
         </div>
         {/* Contact Us */}

@@ -1,15 +1,19 @@
+
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import welcomebg from "../assets/welcomebg.jpg";
+import welcomebg1 from "../assets/welcomebg1.jpg";
 
 export default function Register() {
-  const [name, setName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!name || !email || !password) {
+    if (!firstName || !lastName || !email || !password) {
       alert("Please fill all fields.");
       return;
     }
@@ -21,18 +25,26 @@ export default function Register() {
       return;
     }
     const registeredAt = new Date().toLocaleString();
-    users.push({ name, email, password, registeredAt });
+  users.push({ firstName, lastName, email, password, registeredAt });
     localStorage.setItem("users", JSON.stringify(users));
     alert("Registration successful! Redirecting to login page.");
     navigate("/login");
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-400 to-cyan-300">
+    <div
+      className="min-h-screen flex items-center justify-center"
+      style={{
+        backgroundImage: `url(${welcomebg})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+      }}
+    >
       <div className="bg-white rounded-lg shadow-lg flex w-full max-w-4xl overflow-hidden flex-row-reverse">
         <div className="flex-1 flex items-center justify-center bg-gray-100">
           <img
-            src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80"
+            src={welcomebg1}
             alt="Register"
             className="object-cover w-full h-full"
           />
@@ -41,16 +53,29 @@ export default function Register() {
           <h1 className="text-2xl font-bold mb-2 text-gray-800">Create Account</h1>
           <p className="mb-6 text-gray-600">Sign up to get started</p>
           <form onSubmit={handleSubmit}>
-            <div className="mb-4">
-              <label className="block mb-1 font-semibold text-gray-700">Full Name</label>
-              <input
-                type="text"
-                className="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:border-blue-300"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required
-                placeholder="Enter your name"
-              />
+            <div className="mb-4 flex gap-2">
+              <div className="w-1/2">
+                <label className="block mb-1 font-semibold text-gray-700">First Name</label>
+                <input
+                  type="text"
+                  className="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:border-blue-300"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  required
+                  placeholder="First name"
+                />
+              </div>
+              <div className="w-1/2">
+                <label className="block mb-1 font-semibold text-gray-700">Last Name</label>
+                <input
+                  type="text"
+                  className="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:border-blue-300"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                  required
+                  placeholder="Last name"
+                />
+              </div>
             </div>
             <div className="mb-4">
               <label className="block mb-1 font-semibold text-gray-700">Email</label>
@@ -76,7 +101,7 @@ export default function Register() {
             </div>
             <button
               type="submit"
-              className="w-full py-2 bg-gradient-to-r from-blue-500 to-cyan-400 text-white rounded font-semibold hover:from-cyan-400 hover:to-blue-500 transition"
+              className="w-full py-2 bg-gradient-to-r from-[#b57edc] via-[#a259c6] to-[#6c3483] text-white rounded font-semibold transition"
             >
               Register
             </button>
